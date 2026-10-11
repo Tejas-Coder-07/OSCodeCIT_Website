@@ -175,7 +175,6 @@ export const departments: Department[] = [
         role: "Developer",
         image:
           "/images/team/members/technical-2.jpg",
-        github: "https://github.com/deeprajkumargupta",     
        linkedin: "https://www.linkedin.com/in/deeprajkumargupta/",
        instagram:"https://www.instagram.com/deepraj_.05/",
       },
