@@ -30,7 +30,7 @@ const AchievementsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <GlassCard className="p-8 lg:p-10 border-red-500/30 bg-linear-to-br from-[#0c1329]/90 to-[#070b1a]/95">
+              <GlassCard className="recognition-card p-8 lg:p-10 border-red-500/30 bg-linear-to-br from-[#0c1329]/90 to-[#070b1a]/95">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   
                   <div className="lg:col-span-4 flex flex-col items-center justify-center text-center">

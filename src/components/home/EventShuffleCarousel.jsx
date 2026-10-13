@@ -111,10 +111,12 @@ export default function EventShuffleCarousel() {
             rounded-[2rem]
             border
             border-red-400/25
-            bg-[#06111f]/95
+            dark:bg-[#06111f]/95
+            bg-white/95
             p-4
             sm:p-5
-            shadow-[0_25px_80px_rgba(0,0,0,0.45)]
+            shadow-[0_20px_60px_rgba(0,0,0,0.08)]
+            dark:shadow-[0_25px_80px_rgba(0,0,0,0.45)]
             backdrop-blur-xl
             transition-colors
             duration-500

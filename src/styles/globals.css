@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
 
 @layer base {
   html {
@@ -15,8 +15,6 @@
     font-family: "Geist Variable", "Inter", sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
-    background: #050505;
-    color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
@@ -32,8 +30,7 @@
   }
 }
 
-html.dark body,
-html:not(.dark) body {
+html.dark body {
   background:
     radial-gradient(circle at 15% 10%, rgba(220, 38, 38, 0.10), transparent 28%),
     radial-gradient(circle at 85% 28%, rgba(239, 68, 68, 0.06), transparent 30%),
@@ -41,7 +38,16 @@ html:not(.dark) body {
   color: #fff;
 }
 
-/* The whole site intentionally uses a black / graphite canvas with red-white branding. */
+html:not(.dark) body,
+html.light body {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(239, 68, 68, 0.08), transparent 32%),
+    radial-gradient(circle at 85% 28%, rgba(220, 38, 38, 0.05), transparent 30%),
+    #f8fafc;
+  color: #0f172a;
+}
+
+/* Base mesh backgrounds */
 .site-bg-mesh {
   background-color: #050505;
   background-image:
@@ -50,6 +56,28 @@ html:not(.dark) body {
     radial-gradient(circle at 50% 0%, rgba(127, 29, 29, 0.16), transparent 38%);
   background-size: 44px 44px, 44px 44px, 100% 100%;
   position: relative;
+}
+
+html:not(.dark) .site-bg-mesh,
+html.light .site-bg-mesh {
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(rgba(220, 38, 38, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 38, 38, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.08), transparent 45%);
+}
+
+html:not(.dark) .site-bg-mesh::before,
+html.light .site-bg-mesh::before {
+  background:
+    radial-gradient(circle at 50% 15%, transparent 0, rgba(241, 245, 249, 0.4) 65%, rgba(226, 232, 240, 0.7) 100%);
+}
+
+html:not(.dark) .bg-dot-grid,
+html.light .bg-dot-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
 }
 
 .site-bg-mesh::before {
@@ -304,8 +332,13 @@ html, body {
    ================================================================ */
 :root { --os-red:#ff3341; --os-red-soft:#ff6b72; --os-cyan:#22d3ee; --os-blue:#38bdf8; --os-ink:#020713; --os-panel:#06101f; --os-panel-2:#081426; --os-line:rgba(125,211,252,.24); --os-muted:#9fb0c7; }
 
-html, body { background:#02040a !important; color:#f8fbff; }
-body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; background:radial-gradient(circle at 50% 0%,rgba(17,65,100,.16),transparent 35%),linear-gradient(rgba(34,211,238,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.025) 1px,transparent 1px); background-size:100% 100%,42px 42px,42px 42px; }
+html.dark, html.dark body { background:#02040a; color:#f8fbff; }
+html:not(.dark), html:not(.dark) body,
+html.light, html.light body { background:#f8fafc; color:#0f172a; }
+
+html.dark body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; background:radial-gradient(circle at 50% 0%,rgba(17,65,100,.16),transparent 35%),linear-gradient(rgba(34,211,238,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.025) 1px,transparent 1px); background-size:100% 100%,42px 42px,42px 42px; }
+html:not(.dark) body::after,
+html.light body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; background:radial-gradient(circle at 50% 0%,rgba(239,68,68,.05),transparent 45%),linear-gradient(rgba(220,38,38,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(220,38,38,.02) 1px,transparent 1px); background-size:100% 100%,42px 42px,42px 42px; }
 
 .future-page { min-height:100vh; padding:116px 0 70px; position:relative; }
 .future-page::before { content:""; position:absolute; width:500px; height:300px; left:50%; top:80px; transform:translateX(-50%); background:radial-gradient(circle,rgba(239,68,68,.12),transparent 68%); filter:blur(40px); pointer-events:none; }
@@ -657,7 +690,8 @@ a {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 120px 20px 80px;
+  /* .team-page is zoomed on desktop, so compensate to clear the fixed navbar. */
+  padding: 180px 20px 80px;
 }
 
 .hero-small-label {
@@ -1360,6 +1394,96 @@ a {
   color: rgba(255,255,255,0.5);
 }
 
+/* Team page theme colors: its original page-specific palette was dark-only. */
+html.light .team-page {
+  color: #172033;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.09), transparent 42%),
+    #f4f6fa;
+}
+
+html.light .team-hero h1,
+html.light .section-heading h2,
+html.light .team-ending h2 {
+  color: #172033;
+}
+
+html.light .team-hero h1 span {
+  background: linear-gradient(90deg, #991b1b, #dc2626, #fb7185);
+  -webkit-background-clip: text;
+}
+
+html.light .team-hero p,
+html.light .section-heading h2 em,
+html.light .section-heading > p,
+html.light .team-ending p {
+  color: #596579;
+}
+
+html.light .glass-container {
+  border-color: rgba(185, 28, 28, 0.2);
+  background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,250,252,0.72));
+  box-shadow: 0 24px 65px rgba(15, 23, 42, 0.1), inset 0 1px rgba(255,255,255,0.9);
+}
+
+html.light .glass-content {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+html.light .section-label {
+  color: #172033;
+}
+
+html.light .person-card-face {
+  border-color: rgba(255,255,255,0.65);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+}
+
+html.light .person-card-back {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(239,68,68,0.12), transparent 50%),
+    rgba(248, 250, 252, 0.98);
+  color: #172033;
+}
+
+html.light .back-content p {
+  color: #596579;
+}
+
+html.light .social-links a {
+  border-color: rgba(148,163,184,0.35);
+  background: rgba(255,255,255,0.8);
+  color: #334155;
+}
+
+html.light .department-card-inner {
+  background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(241,245,249,0.98));
+  box-shadow: inset 0 1px rgba(255,255,255,0.9);
+}
+
+html.light .department-card-inner::after {
+  background: linear-gradient(to bottom, transparent 0%, rgba(15,23,42,0.04) 24%, rgba(15,23,42,0.68) 62%, rgba(15,23,42,0.92) 100%);
+}
+
+html.light .department-content h3,
+html.light .department-content p {
+  color: #fff;
+}
+
+html.light .meet-team-button {
+  border-color: rgba(255,255,255,0.42);
+  background: rgba(255,255,255,0.16);
+  color: #ffe4e6;
+}
+
+html.light .meet-team-arrow {
+  background: rgba(255,255,255,0.22);
+}
+
+html.light .team-ending .glass-content {
+  background: rgba(255,255,255,0.9);
+}
+
 
 /* =========================================================
    RESPONSIVE MEDIA QUERIES (TABLET & MOBILE)
@@ -1442,7 +1566,7 @@ a {
 
   /* Hero Adjustments */
   .team-hero {
-    padding: 60px 15px 40px;
+    padding: 110px 15px 40px;
   }
 
   .hero-small-label {
@@ -1577,4 +1701,402 @@ a {
   .team-ending .glass-content {
     padding: 50px 20px;
   }
+}
+
+/* Shared light theme for the Projects, Events, Achievements, Learning and Contact archives. */
+html.light .future-page .future-intro {
+  background: linear-gradient(115deg, rgba(255,255,255,.97), rgba(248,250,252,.94));
+  box-shadow: 0 18px 55px rgba(15,23,42,.08), inset 0 1px rgba(255,255,255,.9);
+}
+
+html.light .future-page .future-intro h1,
+html.light .future-page .neon-frame-head h2,
+html.light .future-page .learning-title h2,
+html.light .future-page .future-card h3 {
+  color: #172033;
+}
+
+html.light .future-page .future-intro p,
+html.light .future-page .neon-frame-head p,
+html.light .future-page .future-card p,
+html.light .future-page .meta-line,
+html.light .future-page .feature-list li,
+html.light .future-page .detail-list div,
+html.light .future-page .learning-detail-head p {
+  color: #526176;
+}
+
+html.light .future-page .future-stats,
+html.light .future-page .neon-frame,
+html.light .future-page .learning-detail,
+html.light .future-page .detail-modal {
+  border-color: rgba(148,163,184,.28);
+  background: linear-gradient(145deg, rgba(255,255,255,.97), rgba(241,245,249,.96));
+  box-shadow: 0 20px 55px rgba(15,23,42,.08);
+}
+
+html.light .future-page .future-stat {
+  border-color: rgba(148,163,184,.24);
+}
+
+html.light .future-page .future-stat strong {
+  color: #172033;
+}
+
+html.light .future-page .future-stat span,
+html.light .future-page .digital-label,
+html.light .future-page .creator-line,
+html.light .future-page .status-row small {
+  color: #64748b;
+}
+
+html.light .future-page .future-tabs button {
+  border-color: rgba(100,116,139,.24);
+  background: rgba(255,255,255,.82);
+  color: #475569;
+}
+
+html.light .future-page .future-tabs button:hover {
+  color: #9f1239;
+}
+
+html.light .future-page .future-card {
+  color: #334155;
+  border-color: rgba(148,163,184,.32);
+  background: linear-gradient(145deg, #fff, #f1f5f9 78%);
+  box-shadow: 0 16px 42px rgba(15,23,42,.09);
+}
+
+html.light .future-page .future-card:hover {
+  border-color: rgba(220,38,38,.42);
+  box-shadow: 0 22px 50px rgba(15,23,42,.13), 0 0 25px rgba(239,68,68,.07);
+}
+
+html.light .future-page .card-actions,
+html.light .future-page .modal-grid,
+html.light .future-page .modal-section,
+html.light .future-page .learning-detail-head {
+  border-color: rgba(148,163,184,.25);
+}
+
+html.light .future-page .tech-row span,
+html.light .future-page .detail-box,
+html.light .future-page .module-grid div,
+html.light .future-page .resource-grid a,
+html.light .future-page .contact-socials a {
+  border-color: rgba(148,163,184,.25);
+  background: rgba(255,255,255,.75);
+  color: #475569;
+}
+
+html.light .future-page .outline-action,
+html.light .future-page .outline-mini {
+  color: #b91c1c;
+  background: rgba(239,68,68,.045);
+}
+
+html.light .future-page .flip-label,
+html.light .future-page .back-topline,
+html.light .future-page .detail-box strong {
+  color: #b91c1c;
+}
+
+html.light .future-page .learning-list button {
+  border-color: rgba(148,163,184,.28);
+  background: rgba(255,255,255,.86);
+  color: #475569;
+}
+
+html.light .future-page .learning-list button:hover,
+html.light .future-page .learning-list button.active {
+  color: #7f1d1d;
+  background: linear-gradient(90deg, rgba(239,68,68,.09), rgba(255,255,255,.96));
+}
+
+html.light .future-page .learning-list button small,
+html.light .future-page .resource-grid a svg:last-child {
+  color: #64748b;
+}
+
+html.light .future-page .contact-card {
+  border-color: rgba(148,163,184,.28);
+  background: rgba(255,255,255,.86);
+  color: #475569;
+}
+
+html.light .future-page .contact-card strong {
+  color: #172033;
+}
+
+html.light .future-page .contact-card small,
+html.light .future-page .contact-card p,
+html.light .future-page .future-form label {
+  color: #64748b;
+}
+
+html.light .future-page .future-form input,
+html.light .future-page .future-form textarea {
+  border-color: rgba(148,163,184,.4);
+  background: #fff;
+  color: #172033;
+}
+
+html.light .future-page .modal-lead,
+html.light .future-page .modal-section p,
+html.light .future-page .detail-list div,
+html.light .future-page .detail-box p {
+  color: #526176;
+}
+
+html.light .future-page .modal-links a {
+  color: #334155;
+  border-color: rgba(8,145,178,.22);
+  background: rgba(8,145,178,.04);
+}
+
+html.light .future-page .empty-state {
+  background: rgba(255,255,255,.92);
+  color: #172033;
+}
+
+html.light .future-page .empty-state p {
+  color: #64748b;
+}
+
+html.light .future-page .achievement-card {
+  color: #334155;
+  border-color: rgba(148,163,184,.3);
+  background: linear-gradient(145deg, #fff, #f1f5f9);
+  box-shadow: 0 18px 45px rgba(15,23,42,.1);
+}
+
+html.light .future-page .achievement-card h3,
+html.light .future-page .achievement-card li,
+html.light .future-page .achievement-card p {
+  color: #334155;
+}
+
+html.light .future-page .achievement-card p.text-white\/45,
+html.light .future-page .achievement-card p.text-white\/65,
+html.light .future-page .achievement-card p.text-white\/70,
+html.light .future-page .achievement-card p.text-white\/75,
+html.light .future-page .achievement-card p.text-white\/40 {
+  color: #64748b;
+}
+
+html.light .future-page .achievement-card .border-white\/10,
+html.light .future-page .achievement-card .bg-white\/5 {
+  border-color: rgba(148,163,184,.25);
+  background-color: rgba(241,245,249,.9);
+  color: #475569;
+}
+
+html.light .future-page .achievement-detail-modal {
+  border-color: rgba(148,163,184,.35);
+  background: #fff;
+  color: #172033;
+}
+
+/* Home page project, event and recognition archives. */
+html.light .os-album {
+  border-color: rgba(220,38,38,.2);
+  background: linear-gradient(145deg, rgba(255,255,255,.97), rgba(241,245,249,.96));
+  box-shadow: 0 24px 65px rgba(15,23,42,.1);
+}
+
+html.light .os-album > .border-b,
+html.light .os-album > .border-t {
+  border-color: rgba(148,163,184,.28);
+}
+
+html.light .os-album h3 {
+  color: #172033;
+}
+
+html.light .os-album p {
+  color: #526176;
+}
+
+html.light .os-album .text-white\/25,
+html.light .os-album .text-white\/50 {
+  color: #64748b;
+}
+
+html.light .os-album .future-card {
+  color: #334155;
+  border-color: rgba(148,163,184,.32);
+  background: linear-gradient(145deg, #fff, #f1f5f9 78%);
+  box-shadow: 0 16px 42px rgba(15,23,42,.09);
+}
+
+html.light .os-album .future-card h3 {
+  color: #172033;
+}
+
+html.light .os-album .future-card p,
+html.light .os-album .future-card .meta-line,
+html.light .os-album .future-card .feature-list li {
+  color: #526176;
+}
+
+html.light .os-album .future-card .tech-row span {
+  border-color: rgba(148,163,184,.25);
+  background: rgba(255,255,255,.75);
+  color: #475569;
+}
+
+html.light .os-album .future-card .card-actions {
+  border-color: rgba(148,163,184,.25);
+}
+
+html.light .os-album .future-card .outline-action,
+html.light .os-album .future-card .flip-label {
+  color: #b91c1c;
+}
+
+html.light .detail-modal {
+  border-color: rgba(148,163,184,.35);
+  background: linear-gradient(145deg, #fff, #f1f5f9);
+  color: #172033;
+}
+
+html.light .detail-modal h2,
+html.light .detail-modal h4 {
+  color: #172033;
+}
+
+html.light .detail-modal .feature-list li,
+html.light .detail-modal .modal-lead {
+  color: #526176;
+}
+
+html.light #achievements .recognition-card {
+  border-color: rgba(220,38,38,.2);
+  background: linear-gradient(145deg, #fff, #f1f5f9);
+  color: #334155;
+  box-shadow: 0 20px 55px rgba(15,23,42,.1);
+}
+
+html.light #achievements .recognition-card h3,
+html.light #achievements .recognition-card .text-white,
+html.light #achievements .recognition-card .text-slate-300,
+html.light #achievements .recognition-card .text-slate-400 {
+  color: #334155;
+}
+
+html.light #achievements .recognition-card img {
+  border-color: #fff;
+}
+
+html.light #achievements .recognition-card .border-white\/10,
+html.light #achievements .recognition-card .bg-white\/5 {
+  border-color: rgba(148,163,184,.25);
+  background-color: rgba(241,245,249,.9);
+}
+
+html.light #achievements .recognition-card .text-red-300 {
+  color: #b91c1c;
+}
+
+/* NeonFrame powers the featured sections directly on the Home page. */
+.neon-frame[data-theme="light"] {
+  border-color: rgba(220,38,38,.2);
+  background: linear-gradient(135deg, rgba(255,255,255,.97), rgba(241,245,249,.96));
+  box-shadow: 0 24px 65px rgba(15,23,42,.09), inset 0 1px rgba(255,255,255,.9);
+}
+
+.neon-frame[data-theme="light"]::before {
+  opacity: .45;
+}
+
+.neon-frame[data-theme="light"] .neon-frame-head {
+  border-color: rgba(148,163,184,.28);
+}
+
+.neon-frame[data-theme="light"] .neon-frame-head h2 {
+  color: #172033;
+}
+
+.neon-frame[data-theme="light"] .neon-frame-head p {
+  color: #526176;
+}
+
+.neon-frame[data-theme="light"] .digital-label {
+  color: #64748b;
+}
+
+.neon-frame[data-theme="light"] .future-card {
+  color: #334155;
+  border-color: rgba(148,163,184,.32);
+  background: linear-gradient(145deg, #fff, #f1f5f9 78%);
+  box-shadow: 0 16px 42px rgba(15,23,42,.09);
+}
+
+.neon-frame[data-theme="light"] .future-card h3 {
+  color: #172033;
+}
+
+.neon-frame[data-theme="light"] .future-card p,
+.neon-frame[data-theme="light"] .future-card .meta-line,
+.neon-frame[data-theme="light"] .future-card .feature-list li {
+  color: #526176;
+}
+
+.neon-frame[data-theme="light"] .future-card .tech-row span {
+  border-color: rgba(148,163,184,.25);
+  background: rgba(255,255,255,.75);
+  color: #475569;
+}
+
+.neon-frame[data-theme="light"] .future-card .card-actions {
+  border-color: rgba(148,163,184,.25);
+}
+
+.neon-frame[data-theme="light"] .future-card .outline-action,
+.neon-frame[data-theme="light"] .future-card .flip-label {
+  color: #b91c1c;
+}
+
+.neon-frame[data-theme="light"] .achievement-card {
+  color: #334155;
+  border-color: rgba(148,163,184,.3);
+  background: linear-gradient(145deg, #fff, #f1f5f9);
+  box-shadow: 0 18px 45px rgba(15,23,42,.1);
+}
+
+.neon-frame[data-theme="light"] .achievement-card h3,
+.neon-frame[data-theme="light"] .achievement-card p,
+.neon-frame[data-theme="light"] .achievement-card li {
+  color: #334155;
+}
+
+.neon-frame[data-theme="light"] .achievement-card .border-white\/10,
+.neon-frame[data-theme="light"] .achievement-card .bg-white\/5 {
+  border-color: rgba(148,163,184,.25);
+  background-color: rgba(241,245,249,.9);
+  color: #475569;
+}
+
+.neon-frame[data-theme="light"] .achievement-detail-modal,
+.neon-frame[data-theme="light"] .detail-modal {
+  border-color: rgba(148,163,184,.35);
+  background: linear-gradient(145deg, #fff, #f1f5f9);
+  color: #172033;
+}
+
+.neon-frame[data-theme="light"] .achievement-detail-modal h3,
+.neon-frame[data-theme="light"] .detail-modal h2,
+.neon-frame[data-theme="light"] .detail-modal h4 {
+  color: #172033;
+}
+
+.neon-frame[data-theme="light"] .achievement-detail-modal p,
+.neon-frame[data-theme="light"] .achievement-detail-modal li,
+.neon-frame[data-theme="light"] .detail-modal .feature-list li,
+.neon-frame[data-theme="light"] .detail-modal .modal-lead {
+  color: #526176;
+}
+
+.neon-frame[data-theme="light"] .modal-backdrop {
+  background: rgba(15,23,42,.48);
 }

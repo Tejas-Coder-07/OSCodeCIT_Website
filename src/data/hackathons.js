@@ -7,23 +7,23 @@
  */
 export const hackathons = [
   {
-    id: "smart-india-hackathon-2026",
-    title: "Smart India Hackathon (SIH)",
-    shortTitle: "SIH",
-    barLabel: "SIH",
+    id: "Decode SIH-2026",
+    title: "Decode SIH",
+    shortTitle: "Decode SIH",
+    barLabel: "Decode SIH",
     category: "National Hackathon",
     date: "5 September 2026",
     dateShort: "5 Sep 2026",
     organizer: "Cambridge Institute of Technology",
     venue: "Cambridge Institute of Technology, Bengaluru",
     status: "Finalist",
-    placement: { num: null, line1: "SIH", line2: "FINALIST" },
+    placement: { num: null, line1: "Decode SIH", line2: "FINALIST" },
     note: "",
     description:
       "A national-level hackathon hosted at our own campus, where our team of four made it to the finals.",
     members: ["Tejas", "Rakesh", "Deepraj", "Durga"],
     image: "/images/hackathons/sih.jpg",
-    imageAlt: "Team OSCODE at Smart India Hackathon holding DECODE SIH 2026 finalist badges in auditorium",
+    imageAlt: "Team OSCODE at Decode SIH holding DECODE SIH 2026 finalist badges in auditorium",
     github: "",
   },
   {

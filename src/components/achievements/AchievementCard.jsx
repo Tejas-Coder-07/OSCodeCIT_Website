@@ -32,6 +32,7 @@ const AchievementCard = ({ item }) => {
     <motion.div
       onMouseMove={handleMouseMove}
       className="
+        achievement-card
         group
         relative
         flex
@@ -270,6 +271,7 @@ const AchievementCard = ({ item }) => {
   const back = (
     <div
       className="
+        achievement-card
         group
         relative
         flex
@@ -483,6 +485,7 @@ const AchievementCard = ({ item }) => {
               }}
               transition={{ duration: 0.25 }}
               className="
+                achievement-detail-modal
                 relative
                 z-10
                 flex

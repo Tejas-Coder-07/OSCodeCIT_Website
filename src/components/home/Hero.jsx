@@ -14,10 +14,14 @@ import EventShuffleCarousel from "./EventShuffleCarousel";
 import { departments } from "../../data/teamData.ts";
 import event from "../../data/events";
 import { projects } from "../../data/projects";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Hero() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <section className="relative min-h-[92vh] overflow-hidden bg-[#050505] pt-28 pb-16">
+    <section className={`relative min-h-[92vh] overflow-hidden pt-28 pb-16 transition-colors duration-500 ${isDark ? "bg-[#050505]" : "bg-linear-to-b from-white via-slate-50 to-slate-100"}`}>
       {/* =========================================================
           VIDEO BACKGROUND
       ========================================================= */}
@@ -43,33 +47,40 @@ export default function Hero() {
         {/* Dark readability layer */}
         <div className="absolute inset-0 bg-black/0" />
 
-        {/* Cinematic blue layer */}
+        {/* Cinematic layer */}
         <div
-          className="
+          className={`
             absolute
             inset-0
-            bg-gradient-to-r
-            from-black/80
-            via-[#120606]/55
-            to-[#180505]/55
-          "
+            transition-opacity
+            duration-500
+            ${
+              isDark
+                ? "bg-linear-to-r from-black/80 via-[#120606]/55 to-[#180505]/55"
+                : "bg-linear-to-r from-black/50 via-blue/85 to-black/50"
+            }
+          `}
         />
 
         {/* Dot grid */}
-        <div className="absolute inset-0 bg-dot-grid opacity-[0.13]" />
+        <div className={`absolute inset-0 bg-dot-grid transition-opacity ${isDark ? "opacity-[0.13]" : "opacity-[0.25]"}`} />
 
         {/* Bottom fade */}
         <div
-          className="
+          className={`
             absolute
             inset-x-0
             bottom-0
             h-52
             bg-gradient-to-t
-            from-[#020617]
-            via-[#020617]/70
-            to-transparent
-          "
+            transition-colors
+            duration-500
+            ${
+              isDark
+                ? "from-[#020617] via-[#020617]/70 to-transparent"
+                : "from-[#f8fafc] via-[#f8fafc]/80 to-transparent"
+            }
+          `}
         />
       </div>
 
@@ -155,7 +166,7 @@ export default function Hero() {
                 y: -3,
                 scale: 1.02,
               }}
-              className="
+              className={`
                 group
                 mb-6
                 inline-flex
@@ -163,27 +174,24 @@ export default function Hero() {
                 gap-2
                 rounded-full
                 border
-                border-red-400/35
-                bg-red-400/[0.08]
+                ${isDark ? "border-red-400/35 bg-red-400/[0.08] text-red-200" : "border-red-500/35 bg-red-500/[0.08] text-red-600"}
                 px-4
                 py-2
                 font-mono
                 text-[11px]
                 font-bold
                 tracking-wider
-                text-red-200
                 backdrop-blur-xl
                 shadow-[0_0_25px_rgba(239,68,68,0.10)]
                 transition-all
                 duration-300
-                hover:border-red-300/70
-                hover:bg-red-400/[0.14]
-              "
+                hover:border-red-400
+              `}
             >
               <Terminal
                 size={14}
                 className="
-                  text-red-300
+                  text-red-400
                   transition-transform
                   duration-300
                   group-hover:rotate-12
@@ -234,24 +242,23 @@ export default function Hero() {
                 xl:text-[4.6rem]
               "
             >
-              <span className="block text-white">Open Source.</span>
+              <span className={`block transition-colors duration-300 text-white`}>
+                Open Source.
+              </span>
 
-              <span
-                className="
-                  block
-                  text-white
-                  bg-clip-text
-                  text-transparent
-                "
-              >
+              <span className={`block transition-colors duration-300 text-white`}>
                 Real Engineering.
               </span>
 
               <span
                 className="
                   block
-                  text-white
+                  bg-gradient-to-r
+                  from-red-500
+                  via-rose-500
+                  to-red-600
                   bg-clip-text
+                  text-transparent
                 "
               >
                 Zero Boundaries.
@@ -274,17 +281,19 @@ export default function Hero() {
                 delay: 0.3,
                 duration: 0.7,
               }}
-              className="
+              className={`
                 mt-6
                 max-w-xl
                 text-[17px]
                 leading-relaxed
-                text-white/70
                 sm:text-[18px]
-              "
+                transition-colors
+                duration-300
+                ${isDark ? "text-white/70" : "text-white"}
+              `}
             >
               Build. Collaborate. Innovate.
-              <span className="font-semibold text-red-300">
+              <span className={`font-semibold ${isDark ? "text-red-300" : "text-red-600"}`}>
                 {" "}
                 Turning ideas into impactful open-source projects.
               </span>
@@ -379,29 +388,28 @@ export default function Hero() {
               {/* Team */}
               <Link
                 to="/team"
-                className="
+                className={`
                   group
                   inline-flex
                   items-center
                   gap-2
                   rounded-xl
                   border
-                  border-red-400/30
-                  bg-white/[0.05]
                   px-6
                   py-3.5
                   text-sm
                   font-bold
-                  text-red-200
                   backdrop-blur-xl
                   transition-all
                   duration-300
                   hover:-translate-y-1
-                  hover:border-red-300/70
-                  hover:bg-red-500/10
-                  hover:shadow-[0_15px_30px_rgba(239,68,68,0.15)]
                   active:scale-95
-                "
+                  ${
+                    isDark
+                      ? "border-red-400/30 bg-white/[0.05] text-red-200 hover:border-red-300/70 hover:bg-red-500/10 hover:shadow-[0_15px_30px_rgba(239,68,68,0.15)]"
+                      : "border-red-500/30 bg-white text-red-600 shadow-sm hover:border-red-500 hover:bg-red-50 hover:shadow-[0_8px_20px_rgba(239,68,68,0.12)]"
+                  }
+                `}
               >
                 <Sparkles
                   size={17}
@@ -418,29 +426,28 @@ export default function Hero() {
               {/* Events */}
               <Link
                 to="/events"
-                className="
+                className={`
                   group
                   inline-flex
                   items-center
                   gap-2
                   rounded-xl
                   border
-                  border-white/15
-                  bg-white/[0.04]
                   px-5
                   py-3.5
                   text-sm
                   font-bold
-                  text-white/70
                   backdrop-blur-xl
                   transition-all
                   duration-300
                   hover:-translate-y-1
-                  hover:border-red-400/50
-                  hover:bg-red-500/10
-                  hover:text-white
                   active:scale-95
-                "
+                  ${
+                    isDark
+                      ? "border-white/15 bg-white/[0.04] text-white/70 hover:border-red-400/50 hover:bg-red-500/10 hover:text-white"
+                      : "border-slate-300 bg-white text-slate-700 shadow-sm hover:border-red-400 hover:text-red-600 hover:bg-red-50/50"
+                  }
+                `}
               >
                 <CalendarDays size={16} />
 
@@ -450,7 +457,6 @@ export default function Hero() {
 
             {/* =================================================
                 STATS
-                ONLY THESE 3 CARDS ARE TRANSPARENT
             ================================================= */}
             <div
               className="
@@ -461,155 +467,147 @@ export default function Hero() {
                 gap-3
               "
             >
-              {/* =================================================
-                  EVENTS HOSTED
-                  Transparent - video fully visible
-              ================================================= */}
+              {/* EVENTS HOSTED */}
               <motion.div
                 whileHover={{
                   y: -7,
                   scale: 1.025,
                 }}
-                className="
+                className={`
                   group
                   rounded-2xl
                   border
-                  border-red-400/20
-                  bg-transparent
                   p-4
                   transition-all
                   duration-300
-                  hover:border-red-400/55
-                  hover:bg-transparent
-                  hover:shadow-[0_15px_35px_rgba(34,211,238,0.12)]
-                "
+                  ${
+                    isDark
+                      ? "border-red-400/20 bg-transparent hover:border-red-400/55 hover:shadow-[0_15px_35px_rgba(34,211,238,0.12)]"
+                      : "border-slate-200 bg-white/80 backdrop-blur-md shadow-sm hover:border-red-400/50 hover:shadow-md"
+                  }
+                `}
               >
                 <CalendarDays
                   size={17}
-                  className="
+                  className={`
                     mb-3
-                    text-red-300
                     transition-transform
                     duration-300
                     group-hover:scale-110
-                  "
+                    ${isDark ? "text-red-300" : "text-red-500"}
+                  `}
                 />
 
                 <div
-                  className="
-                    bg-gradient-to-r
-                    from-white
-                    to-red-400
-                    bg-clip-text
+                  className={`
                     font-mono
                     text-2xl
                     font-black
-                    text-transparent
-                  "
+                    ${
+                      isDark
+                        ? "bg-gradient-to-r from-white to-red-400 bg-clip-text text-transparent"
+                        : "text-slate-900"
+                    }
+                  `}
                 >
                   {event.length - 1}+
                 </div>
 
-                <div className="mt-1 text-xs text-slate-400">Events Hosted</div>
+                <div className={`mt-1 text-xs ${isDark ? "text-slate-400" : "text-slate-500 font-medium"}`}>
+                  Events Hosted
+                </div>
               </motion.div>
 
-              {/* =================================================
-                  CLUB MEMBERS
-                  Transparent - video fully visible
-              ================================================= */}
+              {/* CLUB MEMBERS */}
               <motion.div
                 whileHover={{
                   y: -7,
                   scale: 1.025,
                 }}
-                className="
+                className={`
                   group
                   rounded-2xl
                   border
-                  border-red-400/20
-                  bg-transparent
                   p-4
                   transition-all
                   duration-300
-                  hover:border-red-400/55
-                  hover:bg-transparent
-                  hover:shadow-[0_15px_35px_rgba(239,68,68,0.12)]
-                "
+                  ${
+                    isDark
+                      ? "border-red-400/20 bg-transparent hover:border-red-400/55 hover:shadow-[0_15px_35px_rgba(239,68,68,0.12)]"
+                      : "border-slate-200 bg-white/80 backdrop-blur-md shadow-sm hover:border-red-400/50 hover:shadow-md"
+                  }
+                `}
               >
                 <Users
                   size={17}
-                  className="
+                  className={`
                     mb-3
-                    text-red-300
                     transition-transform
                     duration-300
                     group-hover:scale-110
-                  "
+                    ${isDark ? "text-red-300" : "text-red-500"}
+                  `}
                 />
 
                 <div
-                  className="
-                    text-white
-                    bg-clip-text
+                  className={`
                     font-mono
                     text-2xl
                     font-black
-                  "
+                    ${isDark ? "text-white" : "text-slate-900"}
+                  `}
                 >
                   {departments.reduce((total, department)=> total+=department.members.length,0)}+
                 </div>
 
-                <div className="mt-1 text-xs text-slate-400">Club Members</div>
+                <div className={`mt-1 text-xs ${isDark ? "text-slate-400" : "text-slate-500 font-medium"}`}>
+                  Club Members
+                </div>
               </motion.div>
 
-              {/* =================================================
-                  MAJOR PROJECTS
-                  Transparent - video fully visible
-              ================================================= */}
+              {/* MAJOR PROJECTS */}
               <motion.div
                 whileHover={{
                   y: -7,
                   scale: 1.025,
                 }}
-                className="
+                className={`
                   group
                   rounded-2xl
                   border
-                  border-red-400/20
-                  bg-transparent
                   p-4
                   transition-all
                   duration-300
-                  hover:border-red-400/55
-                  hover:bg-transparent
-                  hover:shadow-[0_15px_35px_rgba(239,68,68,0.12)]
-                "
+                  ${
+                    isDark
+                      ? "border-red-400/20 bg-transparent hover:border-red-400/55 hover:shadow-[0_15px_35px_rgba(239,68,68,0.12)]"
+                      : "border-slate-200 bg-white/80 backdrop-blur-md shadow-sm hover:border-red-400/50 hover:shadow-md"
+                  }
+                `}
               >
                 <FolderGit2
                   size={17}
-                  className="
+                  className={`
                     mb-3
-                    text-red-300
                     transition-transform
                     duration-300
                     group-hover:scale-110
-                  "
+                    ${isDark ? "text-red-300" : "text-red-500"}
+                  `}
                 />
 
                 <div
-                  className="
-                    text-white
-                    bg-clip-text
+                  className={`
                     font-mono
                     text-2xl
                     font-black
-                    text-transparent
-                  "
+                    ${isDark ? "text-white" : "text-slate-900"}
+                  `}
                 >
                   {projects.length - 1}+
                 </div>
 
-                <div className="mt-1 text-xs text-slate-400">
+                <div className={`mt-1 text-xs ${isDark ? "text-slate-400" : "text-slate-500 font-medium"}`}>
                   Major Projects
                 </div>
               </motion.div>

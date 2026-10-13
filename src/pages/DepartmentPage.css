@@ -50,7 +50,8 @@
   text-align: center;
   max-width: 3400px;
   margin: 0 auto;
-  padding-top: 100px;
+  /* Compensate for the desktop page zoom so the heading clears the fixed navbar. */
+  padding-top: 180px;
   padding-bottom: 60px;
 }
 
@@ -144,6 +145,14 @@
 
 /* Mobile responsive centering */
 @media (max-width: 960px) {
+  .department-page {
+    zoom: 1;
+  }
+
+  .department-page-hero {
+    padding-top: 120px;
+  }
+
   .department-lead-section {
     grid-template-columns: 1fr;
     justify-items: center;
@@ -590,4 +599,119 @@
   .member-socials {
     justify-content: flex-start;
   }
+}
+
+/* Department detail page theme colors. */
+html.light .department-page {
+  color: #172033;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(0,119,255,.07), transparent 30%),
+    radial-gradient(circle at 85% 40%, rgba(0,210,255,.06), transparent 30%),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 55%, #f8fafc 100%);
+}
+
+html.light .department-page-hero h1,
+html.light .department-lead-description h2,
+html.light .members-heading h2,
+html.light .department-member-card .member-info h3,
+html.light .department-page-bottom h2,
+html.light .department-not-found h1 {
+  color: #172033;
+}
+
+html.light .back-to-team {
+  color: #b91c1c;
+  border-color: rgba(220,38,38,.25);
+  background: rgba(255,255,255,.8);
+}
+
+html.light .section-eyebrow,
+html.light .department-lead-socials a,
+html.light .member-info span {
+  color: #087e9b;
+}
+
+html.light .lead-role,
+html.light .lead-description-block h3,
+html.light .lead-contribution-block h3,
+html.light .lead-description-block p,
+html.light .lead-contribution-block p,
+html.light .members-heading h2 span,
+html.light .members-count span,
+html.light .department-page-bottom p,
+html.light .department-not-found p {
+  color: #526176;
+}
+
+html.light .department-lead-card-content {
+  border-color: rgba(148,163,184,.35);
+  background: linear-gradient(145deg, rgba(255,255,255,.95), rgba(241,245,249,.9));
+  box-shadow: 0 24px 60px rgba(15,23,42,.12);
+}
+
+html.light .department-lead-photo-overlay {
+  background: linear-gradient(180deg, transparent 45%, rgba(15,23,42,.48));
+}
+
+html.light .lead-description-block,
+html.light .lead-contribution-block {
+  border-left-color: rgba(8,126,155,.3);
+}
+
+html.light .department-lead-skills span {
+  color: #4d7c0f;
+  border-color: rgba(148,163,184,.35);
+  background: rgba(255,255,255,.78);
+}
+
+html.light .department-lead-socials a {
+  border-color: rgba(8,126,155,.2);
+  background: rgba(255,255,255,.72);
+}
+
+html.light .department-section-divider {
+  background: linear-gradient(90deg, transparent, rgba(100,116,139,.28), transparent);
+}
+
+html.light .department-member-card {
+  border-color: rgba(148,163,184,.3);
+  background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(241,245,249,.94));
+  box-shadow: 0 16px 40px rgba(15,23,42,.08);
+}
+
+html.light .department-member-card:hover {
+  border-color: rgba(8,126,155,.38);
+}
+
+html.light .member-number {
+  color: #475569;
+  background: rgba(255,255,255,.86);
+}
+
+html.light .member-socials a {
+  color: #475569;
+  border-color: rgba(148,163,184,.3);
+  background: rgba(255,255,255,.75);
+}
+
+html.light .members-count strong {
+  color: #087e9b;
+}
+
+html.light .department-page-bottom {
+  border-color: rgba(148,163,184,.3);
+  background: radial-gradient(circle at 50% 0%, rgba(0,198,255,.08), transparent 55%), rgba(255,255,255,.78);
+  box-shadow: 0 18px 50px rgba(15,23,42,.07);
+}
+
+html.light .department-page-bottom a {
+  color: #075b70;
+  border-color: rgba(8,126,155,.35);
+  background: rgba(8,126,155,.08);
+}
+
+html.light .department-not-found a {
+  color: #b91c1c;
+  border-color: rgba(220,38,38,.25);
+  background: rgba(255,255,255,.82);
 }

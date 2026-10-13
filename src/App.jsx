@@ -2,6 +2,7 @@ import { Component, Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/layout/RootLayout";
 import TeamDepartmentCard from "./components/TeamDepartmentCard";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const Home = lazy(() => import("./pages/Home"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
@@ -16,11 +17,11 @@ const DepartmentPage =lazy(()=> import("./pages/DepartmentPage"));
 
 function PageLoader() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center bg-[#02040a] px-6 text-white">
-      <div className="w-full max-w-md rounded-2xl border border-cyan-400/20 bg-[#06101f]/90 p-8 text-center shadow-[0_0_50px_rgba(34,211,238,.08)]">
-        <div className="mx-auto mb-5 h-10 w-10 animate-spin rounded-full border-2 border-white/10 border-t-red-500 border-r-cyan-400" />
-        <p className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-red-300">Loading OSCode CIT</p>
-        <p className="mt-2 text-sm text-white/50">Preparing the interface…</p>
+    <div className="flex min-h-[60vh] items-center justify-center dark:bg-[#02040a] bg-slate-50 px-6 dark:text-white text-slate-900 transition-colors duration-300">
+      <div className="w-full max-w-md rounded-2xl border dark:border-cyan-400/20 border-red-500/20 dark:bg-[#06101f]/90 bg-white/90 p-8 text-center shadow-[0_0_50px_rgba(239,68,68,.08)]">
+        <div className="mx-auto mb-5 h-10 w-10 animate-spin rounded-full border-2 border-slate-300 dark:border-white/10 border-t-red-500 border-r-cyan-400" />
+        <p className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-red-500 dark:text-red-300">Loading OSCode CIT</p>
+        <p className="mt-2 text-sm dark:text-white/50 text-slate-500">Preparing the interface…</p>
       </div>
     </div>
   );
@@ -92,7 +93,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <AppErrorBoundary>
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </AppErrorBoundary>
   );
 }

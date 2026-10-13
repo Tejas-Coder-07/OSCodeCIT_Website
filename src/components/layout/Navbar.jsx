@@ -77,9 +77,13 @@ const Navbar = () => {
       <header className="fixed top-0 z-50 w-full px-3 sm:px-5">
         <div
           className={`mx-auto mt-3 max-w-[1500px] rounded-2xl border px-3 sm:px-4 py-3 backdrop-blur-2xl transition-all duration-300 ${
-            scrolled
-              ? "border-red-500/35 bg-[#050505]/92 shadow-[0_14px_45px_rgba(0,0,0,.45),0_0_28px_rgba(239,68,68,.08)]"
-              : "border-white/10 bg-black/45 shadow-[0_10px_35px_rgba(0,0,0,.22)]"
+            isDark
+              ? scrolled
+                ? "border-red-500/35 bg-[#050505]/92 shadow-[0_14px_45px_rgba(0,0,0,.45),0_0_28px_rgba(239,68,68,.08)]"
+                : "border-white/10 bg-black/45 shadow-[0_10px_35px_rgba(0,0,0,.22)]"
+              : scrolled
+                ? "border-red-500/30 bg-white/92 shadow-[0_14px_40px_rgba(0,0,0,.08),0_0_24px_rgba(239,68,68,.06)]"
+                : "border-slate-200/90 bg-white/80 shadow-[0_8px_30px_rgba(0,0,0,.04)]"
           }`}
         >
           <div className="flex items-center justify-between gap-3">
@@ -92,13 +96,25 @@ const Navbar = () => {
                   className="relative h-9 w-auto transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 sm:h-10"
                 />
               </div>
-              <span className="hidden items-center gap-1.5 rounded-full border border-red-500/35 bg-red-500/10 px-3 py-1 font-mono text-[11px] font-bold tracking-wide text-red-300 sm:inline-flex">
+              <span
+                className={`hidden items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-bold tracking-wide sm:inline-flex transition-colors duration-300 ${
+                  isDark
+                    ? "border-red-500/35 bg-red-500/10 text-red-300"
+                    : "border-red-500/35 bg-red-500/10 text-red-600"
+                }`}
+              >
                 <Terminal size={12} className="transition-transform duration-500 group-hover:rotate-180" />
                 CIT Chapter
               </span>
             </Link>
 
-            <nav className="hidden items-center gap-1.5 rounded-full border border-cyan-300/20 bg-[#020914]/80 p-1.5 xl:flex">
+            <nav
+              className={`hidden items-center gap-1.5 rounded-full border p-1.5 xl:flex transition-colors duration-300 ${
+                isDark
+                  ? "border-cyan-300/20 bg-[#020914]/80"
+                  : "border-slate-200/90 bg-slate-100/90 shadow-inner"
+              }`}
+            >
               {navLinks.map((link) => (
                 <NavLink
                   key={link.name}
@@ -122,10 +138,21 @@ const Navbar = () => {
                         className={`relative z-10 flex items-center gap-2 transition-colors duration-300 ${
                           isActive
                             ? "text-white"
-                            : "text-white/70 group-hover:text-red-300"
+                            : isDark
+                              ? "text-white/70 group-hover:text-red-300"
+                              : "text-slate-600 group-hover:text-red-600 font-semibold"
                         }`}
                       >
-                        <link.icon size={14} className={isActive ? "text-white" : "text-cyan-300/70 group-hover:text-cyan-200"} />
+                        <link.icon
+                          size={14}
+                          className={
+                            isActive
+                              ? "text-white"
+                              : isDark
+                                ? "text-cyan-300/70 group-hover:text-cyan-200"
+                                : "text-slate-500 group-hover:text-red-500"
+                          }
+                        />
                         {link.name}
                       </span>
                     </>
@@ -138,7 +165,11 @@ const Navbar = () => {
               {/* Thin red brightness/theme circle */}
               <button
                 onClick={toggleTheme}
-                className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-red-500/65 bg-black/35 text-red-300 shadow-[0_0_18px_rgba(239,68,68,.08)] transition-all duration-300 hover:border-red-400 hover:bg-red-500/10 hover:shadow-[0_0_28px_rgba(239,68,68,.22)] active:scale-90"
+                className={`group relative flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 active:scale-90 ${
+                  isDark
+                    ? "border-red-500/65 bg-black/35 text-red-300 shadow-[0_0_18px_rgba(239,68,68,.08)] hover:border-red-400 hover:bg-red-500/10 hover:shadow-[0_0_28px_rgba(239,68,68,.22)]"
+                    : "border-red-500/50 bg-white/95 text-red-600 shadow-[0_2px_12px_rgba(239,68,68,.12)] hover:border-red-500 hover:bg-red-50 hover:shadow-[0_0_20px_rgba(239,68,68,.2)]"
+                }`}
                 title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
                 aria-label="Toggle brightness/theme"
               >
@@ -150,7 +181,11 @@ const Navbar = () => {
 
               <button
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-red-500/35 bg-white/[0.04] text-white transition hover:border-red-400 hover:bg-red-500/10 active:scale-95 xl:hidden"
+                className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition active:scale-95 xl:hidden ${
+                  isDark
+                    ? "border-red-500/35 bg-white/[0.04] text-white hover:border-red-400 hover:bg-red-500/10"
+                    : "border-slate-300 bg-white text-slate-800 hover:border-red-400 hover:bg-red-50"
+                }`}
                 aria-label="Toggle Navigation"
                 aria-expanded={isOpen}
               >
@@ -179,15 +214,25 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed left-3 right-3 top-[76px] z-50 mx-auto max-w-[1440px] overflow-hidden rounded-2xl border border-red-500/30 bg-[#080808]/98 shadow-2xl backdrop-blur-2xl xl:hidden"
+            className={`fixed left-3 right-3 top-[76px] z-50 mx-auto max-w-[1440px] overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-2xl xl:hidden ${
+              isDark
+                ? "border-red-500/30 bg-[#080808]/98"
+                : "border-slate-200 bg-white/98 text-slate-800"
+            }`}
           >
-            <div className="flex h-9 items-center justify-between border-b border-white/10 px-4">
+            <div
+              className={`flex h-9 items-center justify-between border-b px-4 ${
+                isDark ? "border-white/10" : "border-slate-200"
+              }`}
+            >
               <div className="flex gap-1.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-                <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                <span className={`h-2.5 w-2.5 rounded-full ${isDark ? "bg-white/25" : "bg-slate-300"}`} />
+                <span className={`h-2.5 w-2.5 rounded-full ${isDark ? "bg-white/15" : "bg-slate-200"}`} />
               </div>
-              <span className="font-mono text-[11px] text-white/40">~/oscode-navigation</span>
+              <span className={`font-mono text-[11px] ${isDark ? "text-white/40" : "text-slate-400"}`}>
+                ~/oscode-navigation
+              </span>
             </div>
 
             <motion.div
@@ -208,20 +253,36 @@ const Navbar = () => {
                       to={link.path}
                       end={link.path === "/"}
                       className={`group relative flex items-center gap-3.5 overflow-hidden rounded-xl px-4 py-3 transition-all duration-300 ${
-                        isActive ? "bg-red-500/15" : "hover:bg-red-500/10"
+                        isActive
+                          ? "bg-red-500/15"
+                          : isDark
+                            ? "hover:bg-red-500/10"
+                            : "hover:bg-slate-100"
                       }`}
                     >
                       {isActive && (
                         <span className="absolute left-0 top-1/2 h-7 w-[3px] -translate-y-1/2 rounded-full bg-red-500 shadow-[0_0_14px_rgba(239,68,68,.8)]" />
                       )}
-                      <span className="font-mono text-[10px] text-white/30">{String(index + 1).padStart(2, "0")}</span>
+                      <span className={`font-mono text-[10px] ${isDark ? "text-white/30" : "text-slate-400"}`}>
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
                       <Icon
                         size={18}
                         className={`transition-transform duration-500 group-hover:rotate-12 ${
-                          isActive ? "text-red-400" : "text-white/50 group-hover:text-red-300"
+                          isActive
+                            ? "text-red-500"
+                            : isDark
+                              ? "text-white/50 group-hover:text-red-300"
+                              : "text-slate-400 group-hover:text-red-500"
                         }`}
                       />
-                      <span className={`text-sm font-bold ${isActive ? "text-red-300" : "text-white/80 group-hover:text-white"}`}>
+                      <span
+                        className={`text-sm font-bold ${
+                          isActive
+                            ? isDark ? "text-red-300" : "text-red-600"
+                            : isDark ? "text-white/80 group-hover:text-white" : "text-slate-700 group-hover:text-slate-900"
+                        }`}
+                      >
                         {link.name}
                       </span>
                     </NavLink>

@@ -1,6 +1,10 @@
+import { useTheme } from "../../context/ThemeContext";
+
 export default function NeonFrame({ children, eyebrow, title, description, className = "" }) {
+  const { isDark } = useTheme();
+
   return (
-    <section className={`neon-frame ${className}`}>
+    <section className={`neon-frame ${className}`} data-theme={isDark ? "dark" : "light"}>
       <div className="neon-frame-head">
         <div>
           {eyebrow && <div className="future-eyebrow">{eyebrow}</div>}

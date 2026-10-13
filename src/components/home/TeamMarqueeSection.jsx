@@ -44,8 +44,8 @@ export default function TeamMarqueeSection() {
         </Marquee>
 
         {/* Side Fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#060b18] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#060b18] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#02040a] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[#02040a] to-transparent" />
       </div>
 
       <div className="mt-8 text-center">
