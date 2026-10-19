@@ -269,7 +269,7 @@ function Landing({ onPick, onExplore, reduce }) {
             <i /> OSCODE&nbsp;&nbsp;/&nbsp;&nbsp;HACKATHON ARCHIVE&nbsp;·&nbsp;2026
           </motion.div>
           <h1 className="hk-lh">
-            {word("Four hackathons.", 0, false)}
+            {word("hackathons.", 0, false)}
             {word("One season.", 1, true)}
           </h1>
           <motion.p className="hk-ls" {...fadeUp(0.7)}>

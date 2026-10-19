@@ -191,7 +191,7 @@ html.light .hk-mx {
 .hk-jr { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; width: min(1240px, calc(100% - 80px)); padding: 12px 26px 16px; border: 1px solid rgba(255,255,255,.1); border-radius: 22px; background: rgba(12,13,19,.78); backdrop-filter: blur(18px); box-shadow: 0 20px 60px rgba(0,0,0,.5); display: flex; align-items: center; gap: 28px; z-index: 8; }
 .hk-jt { font: 700 11px var(--hk-mono); letter-spacing: .2em; color: var(--hk-red2); white-space: nowrap; line-height: 1.5; }
 .hk-jt small { display: block; color: #8d8f9a; font-weight: 600; letter-spacing: .14em; }
-.hk-jl { position: relative; flex: 1; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; list-style: none; margin: 0; padding: 0; }
+.hk-jl { position: relative; flex: 1; display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 18px; list-style: none; margin: 0; padding: 0; }
 .hk-jl::before { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 2px; background: rgba(255,255,255,.12); }
 .hk-jl li { list-style: none; }
 .hk-jf { position: absolute; left: 0; bottom: -10px; height: 2px; background: var(--hk-red); box-shadow: 0 0 14px var(--hk-red); z-index: 1; }
