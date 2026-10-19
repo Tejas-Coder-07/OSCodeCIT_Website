@@ -149,7 +149,7 @@ export default function Events() {
             description="Every event has its own complete card with readable details, image, location, and actions."
           >
             <div className="events-grid">
-              {list.map((event, index) => (
+              {[...list].reverse().map((event, index) => (
                 <motion.div
                   key={event.id}
                   initial={{

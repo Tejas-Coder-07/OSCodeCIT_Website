@@ -1,5 +1,25 @@
 export const achievements = [
   {
+    id: "decode-sih-2026-finale",
+    name: "Decode SIH 2026 Finale",
+    badge: "Bengaluru Finale Host",
+    category: "Hackathon Finale",
+    role: "Cambridge Institute of Technology (CIT)",
+    metric: "50 Finalist Teams",
+    metricLabel: "National Finale",
+    image: "/images/achievements/DecodeSIH_IndianExpress.jpeg",
+    description:
+      "Cambridge Institute of Technology (CIT) hosted the Bengaluru finale of Decode SIH 2026, bringing together 50 finalist teams for the Smart India Hackathon preparation initiative[cite: 1].",
+    fullDetails:
+      "The programme drew over 15,000 registrations and 3,500 teams from 1,600 colleges across 24 states and 151 cities[cite: 1]. Participants tackled challenges spanning healthcare, agriculture, smart cities, mobility, cybersecurity, fintech, governance, and AI, with Valerion Coders, Wall Street Wolves, and CONQUER emerging as Bengaluru winners[cite: 1].",
+    highlights: [
+      "Hosted the Bengaluru finale featuring 50 finalist teams[cite: 1]",
+      "Engaged participants across 15,000+ registrations nationwide[cite: 1]",
+      "Covered multi-domain problem statements including healthcare, AI, and smart cities[cite: 1]"
+    ],
+    tags: ["Decode SIH 2026", "Smart India Hackathon", "Hackathon Finale"],
+  },
+  {
     id: "techsync-best-lab",
     name: "Microsoft TechSync 2026",
     badge: "Best Lab Idea Award",
